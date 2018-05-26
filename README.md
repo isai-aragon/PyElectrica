@@ -19,7 +19,9 @@ y una resistencia de 2 Ohms (R=2).
 ```bash
 >>> leyOhm(V=12, I='?', R=2)
 ```
+```bash
 I = 6.0 A
+```
 ```bash
 >>>
 ```
