@@ -1,9 +1,13 @@
 # PyElectrica
-MODULO PyElectrica, UTIL PARA RESOLVER PROBLEMAS ESPECIFICOS DE LA INGENIERIA ELECTRICA
+MODULO PyElectrica, UTIL PARA RESOLVER PROBLEMAS ESPECIFICOS DE LA INGENIERIA ELECTRICA RELATIVOS A LOS CIRCUITOS Y MAQUINAS ELECTRICAS
 
 ## INSTALACION
 ```bash
 > pip install pyelectrica
+```
+## ACTUALIZACION
+```bash
+> pip install -U pyelectrica
 ```
 ## MANUAL DE USO
 Desde el interprete de Python se importa la funcion a utilizar segun el tipo de problemas que se quiera resolver.
@@ -25,7 +29,7 @@ I = 6.0 A
 ```bash
 >>>
 ```
-## FUNCIONES INCLUIDAS EN LA VERSION 1.0.6 EL MODULO PyElectrica
+## FUNCIONES INCLUIDAS EN LA VERSION 1.1.0 EL MODULO PyElectrica
 
 ### Para analisis de Circuitos Electricos
 

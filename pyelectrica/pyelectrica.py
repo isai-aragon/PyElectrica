@@ -1,21 +1,49 @@
-﻿#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+﻿#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #
 # pyelectrica.py
 #
 # Autor: Isai Aragón Parada
 #
-
 """
 Modulo Python con funciones útiles para resolver problemas específicos
-en la Ingeniería Eléctrica.
+en la Ingeniería Eléctrica relativos  los Circuitos y Máquinas Eléctricas.
+
+Funciones integradas en el módulo PyElectrica:
+----------------------------------------------
+       ANÁLISIS DE CIRCUITOS ELÉCTRICOS
+----------------------------------------------
+* leyOhm
+* vNodos
+* vNodosV
+* iLazos
+* iLazosV
+* bode
+* bodeNB
+* escalon
+
+----------------------------------------------
+       ANÁLISIS DE MÁQUINAS ELÉCTRICAS
+----------------------------------------------
+* mLineal_CC
+* compCA_GenSinc
+* par_vel
+
+----------------------------------------------
+      CONSTANTES Y FUNCIONES MATEMÁTICAS 
+----------------------------------------------
+* pi   - Constante pi = 3.141592653589793
+* exp  - Constante e : Número de Euler
+* cos  - Función coseno
+* sin  - Función seno
+* sqrt - Raíz cuadrada
 """
 
 __author__ = "Isai Aragón Parada"
 __copyright__ = "Copyright 2018, Isai Aragón"
 __credits__ = "Isai Aragón Parada"
 __license__ = "MIT"
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 __maintainer__ = "Isai Aragón Parada"
 __email__ = "isaix25@gmail.com"
 __status__ = "En constante desarrollo"
@@ -24,9 +52,12 @@ __status__ = "En constante desarrollo"
 
 # Se importan los modulos necesarios
 import matplotlib.pyplot as plt
-from numpy import linspace, arange, pi, cos, sin, exp, array, sqrt
-from numpy.linalg import solve
+import numpy as np
 from scipy import signal
+from numpy.ma import round
+from numpy.linalg import solve
+from numpy import linspace, arange, pi, cos, sin, exp, array, sqrt
+
 
 #-----------------------------------------------------------------------------
 
@@ -37,21 +68,42 @@ def leyOhm(**param):
     """
     Función para calcular la Ley de Ohm, en base al parámetro
     con incognita '?'.
+    
     Ejemplo:
     leyOhm(V='?', I=3, R=4)
+
+    V = Valor de tensión
+    I = Valor corriente
+    R = Valor de resistencia
+
+    IMPORTANTE: Se debe indicar dos valores numericos y el valor 
+                que se quiere calcular indicando su valor con la 
+                cadena de texto: '?'
+                
+                Ejemplo:
+                # Para calcular el voltaje:
+                leyOhm(V='?', I=3, R=4) 
+
+                # Para calcular la resistencia:
+                leyOhm(V=24, I=3.5, R='?') 
+                
+                # Para calcular la corriente:
+                leyOhm(V=12, I='?', R=5)
+
+                ** La función acepta números complejos ** 
     """
 
     if param['V'] == '?':
         print('V =',
-              round(float(param['I'] * param['R']), 2), 'V')
+              round((param['I'] * param['R']), 3), 'V')
 
     elif param['I'] == '?':
         print('I =',
-              round(float(param['V'] / param['R']), 2), 'A')
+              round((param['V'] / param['R']), 3), 'A')
 
     elif param['R'] == '?':
         print('R =',
-              round(float(param['V'] / param['I']), 2), 'Ω')
+              round((param['V'] / param['I']), 3), 'Ω')
 
     else:
         print('¡No hay nada que calcular!')
@@ -68,6 +120,15 @@ def bode(num, den):
     """
     Función que genera los diagramas de Bode para una función  de
     transferencia, indicada por su numerador (num) y denominador(den).
+
+    Ejemplo:
+    bode(num, den)
+
+    num = valores en formato de lista, que contiene lo valores del
+          númerador de la fución de transferencia.
+
+    den = valores en formato de lista, que contiene los valores del
+          denominador de la función de transferencia.
     """
 
     # Se determina el tamaño de la gráfica
@@ -106,6 +167,15 @@ def bodeNb(num, den):
     """
     Función que genera los diagramas de Bode para una función  de
     transferencia, indicada por su numerador (num) y denominador(den).
+
+    Ejemplo:
+    bodeNb(num, den)
+
+    num = valores en formato de lista, que contiene lo valores del
+          númerador de la fución de transferencia.
+
+    den = valores en formato de lista, que contiene los valores del
+          denominador de la función de transferencia.
     """
 
     # Se determina el tamaño de la gráfica
@@ -145,11 +215,14 @@ def escalon(num, den):
     Función escalón, para generar la respuesta escalón en base a una
     función de transferencia.
 
+    Ejemplo:
+    escalon(num, den)
+
     num = valores en formato de lista, que contiene lo valores del
-    númerador de la fución de transferencia.
+          númerador de la fución de transferencia.
 
     den = valores en formato de lista, que contiene los valores del
-    denominador de la función de transferencia.
+          denominador de la función de transferencia.
     """
 
     # Se declara la función de transferencia, se genera el tiempo (t),  y
@@ -178,12 +251,14 @@ def vNodos(A, B):
     Función vNodos, que resuelve un sistema de ecuaciones en forma
     matricial y entrega los correspondientes voltajes de nodo en base
     al sistema de ecuaciones del circuito.
+
+    Ejemplo:
+    vNodos(A, B)
+
     A = lista que define la matriz de coeficiente.
     B = lista que define la matriz del vector solución.
     """
 
-    #mA = array(A)
-    #mB = array(B)
     V = solve(A, B)
 
     print('Los voltajes de nodo del circuito son:\n')
@@ -205,13 +280,15 @@ def vNodosV(A, B):
     Función vNodos, que resuelve un sistema de ecuaciones en forma
     matricial y entrega los correspondientes voltajes de nodo en base
     al sistema de ecuaciones del circuito.
+
+    Ejemplo:
+    vNodosV(A, B)
+
     A = lista que define la matriz de coeficiente.
     B = lista que define la matriz del vector solución.
     """
 
-    #mA = array(A)
-    #mB = array(B)
-    V = solve(A, B)
+    return solve(A, B)
 
 #-----------------------------------------------------------------------------
 
@@ -225,12 +302,14 @@ def iLazos(A, B):
     Función iLazos, que resuelve un sistema de ecuaciones en forma
     matricial y entrega las correspondientes corrientes de lazo en base
     al sistema de ecuaciones del circuito.
+
+    Ejemplo:
+    iLazos(A, B)
+
     A = lista que define la matriz de coeficiente.
     B = lista que define la matriz del vector solución.
     """
 
-    #mA = array(A)
-    #mB = array(B)
     I = solve(A, B)
 
     print('Las corrientes de lazo del circuito son:\n')
@@ -252,12 +331,14 @@ def iLazosV(A, B):
     Función iLazosF (Entrega lista de valores), que resuelve un sistema
     de ecuaciones en forma matricial y entrega las correspondientes
     corrientes de lazo en base al sistema de ecuaciones del circuito.
+
+    Ejemplo:
+    iLazosV(A, B)
+
     A = lista que define la matriz de coeficiente.
     B = lista que define la matriz del vector solución.
     """
 
-    #mA = array(A)
-    #mB = array(B)
     return solve(A, B)
 
 #-----------------------------------------------------------------------------
@@ -273,6 +354,7 @@ def mLineal_CD(Vb=120, R=0.5, l=1, B=0.5):
     Función \"mLineal_CD\", util para calcular el comportamiento de una
     máquina lineal CD en base a los parámetros declarados.
 
+    Ejemplo:
     mLineal_CD(Vb, R, l, B)
 
     Vb = Voltaje de la batería
@@ -280,6 +362,10 @@ def mLineal_CD(Vb=120, R=0.5, l=1, B=0.5):
     l = longitud del conductor en el campo magnético
     B =  Vector de densidad de flujo magnético
     """
+
+    # Se determina el tamaño de la gráfica
+    import pylab
+    pylab.rcParams['figure.figsize'] = (9, 6.5)
 
     # Se declara el rango de fuerzas a aplicar
     F = linspace(0, 50, num=50)
@@ -336,7 +422,7 @@ def compCA_GenSinc(Sbase=(100 * 10**6), Vbase=(13.8 * 10**3), Xs=1.0,
 
     # Se determina el tamaño de la gráfica
     import pylab
-    pylab.rcParams['figure.figsize'] = (10, 6.18)
+    pylab.rcParams['figure.figsize'] = (9, 6.5) 
 
     # Se calcula la componente ac de la corriente
     t = linspace(0.0, 5.0, num=155)
@@ -394,7 +480,7 @@ def par_vel(Vn=460, Polos=4, f=60, R1=0.641, X1=1.106,
 
     # Se determina el tamaño de la gráfica
     import pylab
-    pylab.rcParams['figure.figsize'] = (10, 6.18)
+    pylab.rcParams['figure.figsize'] = (9, 6.5)
 
     # Se preparan las variables para el cálculo
     Vfase = Vn / sqrt(3)

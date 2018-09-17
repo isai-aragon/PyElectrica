@@ -9,16 +9,18 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyelectrica",
-    version="1.0.6",
+    version="1.1.0",
     author="Isai Aragón",
     author_email="isaix25@gmail.com",
-    description="Módulo PyElectrica, útil para resolver problemas específicos en la Ingeniería eléctrica",
+    description="Módulo PyElectrica, útil para resolver problemas específicos de máquinas y circuitos eléctricos de la Ingeniería Eléctrica",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/x1sa1/PyElectrica",
     packages=setuptools.find_packages(),
     classifiers=(
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
