@@ -29,7 +29,7 @@ I = 6.0 A
 ```bash
 >>>
 ```
-## FUNCIONES INCLUIDAS EN LA VERSION 1.1.0 EL MODULO PyElectrica
+## FUNCIONES INCLUIDAS EN LA VERSION 1.1.1 EL MODULO PyElectrica
 
 ### Para analisis de Circuitos Electricos
 

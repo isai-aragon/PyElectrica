@@ -6,6 +6,8 @@
 # Autor: Isai Aragón Parada
 #
 """
+PyElectrica   |1.1.1|
+
 Modulo Python con funciones útiles para resolver problemas específicos
 en la Ingeniería Eléctrica relativos  los Circuitos y Máquinas Eléctricas.
 
@@ -43,7 +45,7 @@ __author__ = "Isai Aragón Parada"
 __copyright__ = "Copyright 2018, Isai Aragón"
 __credits__ = "Isai Aragón Parada"
 __license__ = "MIT"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 __maintainer__ = "Isai Aragón Parada"
 __email__ = "isaix25@gmail.com"
 __status__ = "En constante desarrollo"
@@ -54,7 +56,6 @@ __status__ = "En constante desarrollo"
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
-from numpy.ma import round
 from numpy.linalg import solve
 from numpy import linspace, arange, pi, cos, sin, exp, array, sqrt
 
@@ -95,15 +96,15 @@ def leyOhm(**param):
 
     if param['V'] == '?':
         print('V =',
-              round((param['I'] * param['R']), 3), 'V')
+              np.ma.round((param['I'] * param['R']), 3), 'V')
 
     elif param['I'] == '?':
         print('I =',
-              round((param['V'] / param['R']), 3), 'A')
+              np.ma.round((param['V'] / param['R']), 3), 'A')
 
     elif param['R'] == '?':
         print('R =',
-              round((param['V'] / param['I']), 3), 'Ω')
+              np.ma.round((param['V'] / param['I']), 3), 'Ω')
 
     else:
         print('¡No hay nada que calcular!')
@@ -269,7 +270,7 @@ def vNodos(A, B):
     num = 0
     for v in V:
         num += 1
-        print('v' + str(num), '=', round(v[0], 2), 'Volts')
+        print('v' + str(num), '=', np.ma.round(v[0], 3), 'Volts')
 
 # Se genera función que imprime las corrientes de lazo en forma de lista
 # para que puedan ser manipulados.
@@ -320,7 +321,7 @@ def iLazos(A, B):
     num = 0
     for i in I:
         num += 1
-        print('i' + str(num), '=', round(i[0], 2), 'Amperes')
+        print('i' + str(num), '=', np.ma.round(i[0], 3), 'Amperes')
 
 # Se genera función que imprime las corrientes de lazo en forma de lista
 # para que puedan ser manipulados.
