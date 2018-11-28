@@ -1,3 +1,5 @@
+> Se omiten signos ortograficos intensionalmente para evitar problemas de visualizacion en la pagina del modulo en PyPI.
+
 # PyElectrica
 MODULO PyElectrica, UTIL PARA RESOLVER PROBLEMAS ESPECIFICOS DE LA INGENIERIA ELECTRICA RELATIVOS A LOS CIRCUITOS Y MAQUINAS ELECTRICAS
 
@@ -29,7 +31,7 @@ I = 6.0 A
 ```bash
 >>>
 ```
-## FUNCIONES INCLUIDAS EN LA VERSION 1.1.1 EL MODULO PyElectrica
+## FUNCIONES INCLUIDAS EN LA VERSION 1.1.2 EL MODULO PyElectrica
 
 ### Para analisis de Circuitos Electricos
 
@@ -49,6 +51,8 @@ I = 6.0 A
 
 * iLazosV
 
+* c_1orden
+
 ### Para el analisis de Maquinas electricas
 
 * mLineal_CD
@@ -58,7 +62,7 @@ I = 6.0 A
 * par_vel
 
 ## GENERAR INFORMACION DE AYUDA DE LA FUNCION IMPORTADA
-Basta con llamar en el interprete de Python la funcion "help()" y la funcion importada del modulo PyElectrica,
+Basta con llamar en el interprete de Python la funcion "help()" y la función importada del modulo PyElectrica,
 utilizando la siguiente sintaxis: help("nombre de la funcion").
 
 Ejemplo:
@@ -66,4 +70,3 @@ Ejemplo:
 >>> help(leyOhm)
 ```
 
-> Se omiten signos ortograficos intensionalmente para evitar problemas de visualizacion en la pagina del modulo en el PyPI.

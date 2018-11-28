@@ -1,18 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 import setuptools
 
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pyelectrica",
-    version="1.1.1",
+    version="1.1.2",
     author="Isai Aragón",
     author_email="isaix25@gmail.com",
-    description="Módulo PyElectrica, útil para resolver problemas específicos de máquinas y circuitos eléctricos en la Ingeniería Eléctrica",
+    description="Módulo PyElectrica, útil para resolver problemas específicos \
+    de máquinas y circuitos eléctricos en la Ingeniería Eléctrica",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/x1sa1/PyElectrica",
