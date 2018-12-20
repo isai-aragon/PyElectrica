@@ -1,2 +1,3 @@
-build
-pyelectrica.egg-info
+build/
+pyelectrica.egg-info/
+Ejemplos/.ipynb_checkpoints/
