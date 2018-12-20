@@ -8,7 +8,44 @@ code{
     color: blue
 }
 
-/* Se declara aqui la clase para poder cambiar el color del background*/
+/* Se declara aqui la clase para poder cambiar el color del background del encabezado*/
 .bg-primary{
     background-color: #fb5000 !important;
+}
+
+a {
+    color: #0056b3; /*Original: #007bff*/
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+  }
+  
+a:hover {
+color: #fb5000;
+text-decoration: underline;
+}
+
+/* CSS Para el titulo de la página*/
+.navbar-dark .navbar-brand {
+color: #fff;
+}
+
+.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
+color: rgb(50, 180, 250);
+}
+
+/*CSS para los tabs del la barra de navegación*/
+.navbar-dark .navbar-nav .nav-link {
+color: rgb(255, 255, 255);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+color: rgb(50, 180, 250);
+}
+
+.navbar-dark .navbar-nav .show > .nav-link,
+.navbar-dark .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .nav-link.show,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: rgb(50, 180, 250);
 }
