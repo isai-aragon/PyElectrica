@@ -1,5 +1,14 @@
-code {
+#text_h1{
+    font-size: 63px;
+}
+
+code{
     font-family: monospace;
-    font-size: 16px;
+    font-size: 18px;
     color: blue
+}
+
+/* Se declara aqui la clase para poder cambiar el color del background*/
+.bg-primary{
+    background-color: #fb5000 !important;
 }
