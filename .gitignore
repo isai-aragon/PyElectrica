@@ -1,4 +1,4 @@
 build/
 pyelectrica.egg-info/
-Manual/.ipynb_checkpoints/
+Manual/.ipynb_checkpoints/*
 __pycache__/
