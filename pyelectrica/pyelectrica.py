@@ -1,14 +1,10 @@
 ﻿# -*- coding: utf-8 -*-
-#
-# pyelectrica.py
-#
-# Autor: Isai Aragón Parada
-#
+
 """
-PyElectrica   |1.1.2|
+PyElectrica   |1.1.3|
 
 Modulo Python con funciones útiles para resolver problemas específicos
-en la Ingeniería Eléctrica relativos  los Circuitos y Máquinas Eléctricas.
+en la Ingeniería Eléctrica relativos a los Circuitos y Máquinas Eléctricas.
 
 Funciones integradas en el módulo PyElectrica:
 ----------------------------------------------
@@ -30,6 +26,7 @@ Funciones integradas en el módulo PyElectrica:
 * mLineal_CC
 * compCA_GenSinc
 * par_vel
+* cepTransformador
 
 ----------------------------------------------
       CONSTANTES Y FUNCIONES MATEMÁTICAS
@@ -45,7 +42,7 @@ __author__ = "Isai Aragón Parada"
 __copyright__ = "Copyright 2018, Isai Aragón"
 __credits__ = "Isai Aragón Parada"
 __license__ = "MIT"
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 __maintainer__ = "Isai Aragón Parada"
 __email__ = "isaix25@gmail.com"
 __status__ = "En constante desarrollo"
@@ -702,6 +699,124 @@ def par_vel(Vn=460, Polos=4, R1=0.641, X1=1.106,
     plt.grid()
 
     plt.show()
+
+# -----------------------------------------------------------------------------
+
+
+# Función "cepTransformador" que analiza y entrega el circuito equivalente en
+# el lado primario de un tranformador en base a sus parametros de las pruebas
+# de corto circuito y circuito abierto.
+
+
+def cepTransformador(Voc, Ioc, Poc, Vsc, Isc, Psc):
+    """
+    Función \"cepTransformador\" para calcular el circuito equivalente de
+    un transformador en el lado primário, en función de sus parametros
+    de las pruebas de circuito abierto y corto circuito.
+
+    Ejemplo:
+    cepTransformador(Voc, Ioc, Poc, Vsc, Isc, Psc)
+
+    Donde:
+    Voc = Voltaje en prueba de circuito abierto en el lado primario.
+    Ioc = Corriente en prueba de circuito abierto en el lado primario.
+    Poc = Potencia en prueba de circuito abierto en el lado primario.
+    Vsc = Voltaje en prueba de corto circuito en el lado primario.
+    Isc = Corriente en prueba de corto circuito en el lado primario.
+    Psc = Potencia en prueba de corto circuito en el lado primario.
+    """
+
+    # Se importan los módulos necesarios.
+    from cmath import rect
+    from numpy import arccos, sqrt
+    import SchemDraw as schem
+    import SchemDraw.elements as e
+    from numpy.ma import round as roundC
+
+    # Análisis de circuito abierto.
+    FP_oc = Poc / (Voc * Ioc)    # FP de circuito abierto
+    Ye = rect(Ioc / Voc, - arccos(FP_oc))
+    Rc = roundC(sqrt((1 / Ye.real * (1/1000))**2), 2)
+    Xm = roundC(sqrt((1 / Ye.imag * (1/1000))**2), 2)
+
+    # Análisis de cortocircuito.
+    FP_sc = Psc / (Vsc * Isc)   # FP de cortocircuito
+    Zse = rect(Vsc / Isc, - arccos(FP_sc))
+    Req = roundC(sqrt(Zse.real**2), 2)
+    Xeq = roundC(sqrt(Zse.imag**2), 2)
+
+    # Se imprimen los valores en pantalla.
+    print('Rc', '\t', '=', '\t', Rc, 'kOhms')
+    print('Xm', '\t', '=', '\t', Xm, 'kOhms')
+    print('Req', '\t', '=', '\t', Req, 'Ohms')
+    print('Xeq', '\t', '=', '\t', Xeq, 'Ohms')
+
+    # Se genera el diagrama del circuito equivalente.
+    d = schem.Drawing()
+
+    # Terminal voltaje primario positivo.
+    Vp_mas = d.add(e.DOT_OPEN, label='+')
+    d.add(e.LINE, d='right', l=6)
+
+    # Nodo 1
+    D1 = d.add(e.DOT)
+
+    # Resistencia y Reactancia equivalente en serie.
+    d.add(e.LINE, d='right', l=2, xy=D1.start)
+    eReq = d.add(e.RES, botlabel='{} $\Omega$'.format(Req))
+    eReq.add_label('$R_{eq}$', loc='top')
+    d.add(e.LINE, d='right', l=1, xy=eReq.end)
+    eXeq = d.add(e.INDUCTOR, botlabel='j{} $\Omega$'.format(Xeq))
+    eXeq.add_label('$jX_{eq}$', loc='top')
+    d.add(e.LINE, d='right', l=2, xy=eXeq.end)
+
+    # Terminal voltaje secundario positivo.
+    Vs_mas = d.add(e.DOT_OPEN, label='+')
+
+    # Nodo 2
+    d.add(e.LINE, d='down', l=3, xy=D1.start)
+    D2 = d.add(e.DOT)
+    d.add(e.LINE, d='right', l=3, xy=D2.start)
+    d.add(e.LINE, d='down', l=1)
+
+    # Reactancia Xm en paralelo.
+    eXm = d.add(e.INDUCTOR, botlabel='$j{} \ k\Omega$'.format(Xm))
+    eXm.add_label('$jX_m$', loc='top')
+    d.add(e.LINE, d='down', l=1)
+    d.add(e.LINE, d='left', l=3)
+
+    # Nodo 3
+    D3 = d.add(e.DOT)
+    d.add(e.LINE, d='left', l=3)
+    d.add(e.LINE, d='up', l=1)
+
+    # Resistencia Rc en paralelo
+    eRc = d.add(e.RES, botlabel='{} k$\Omega$'.format(Rc))
+    eRc.add_label('$R_c$', loc='top')
+    d.add(e.LINE, d='up', l=1)
+    d.add(e.LINE, d='right', l=3)
+
+    # Nodo 4
+    d.add(e.LINE, d='down', l=3, xy=D3.start)
+    D4 = d.add(e.DOT)
+
+    # Terminal Voltaje secundario negativo.
+    d.add(e.LINE, d='right', l=11, xy=D4.start)
+    Vs_menos = d.add(e.DOT_OPEN, label='-')
+
+    # Terminal Voltaje primario negativo.
+    d.add(e.LINE, d='left', l=6, xy=D4.start)
+    Vp_menos = d.add(e.DOT_OPEN, label='-')
+
+    # Etiqueta invisible de terminal de voltaje primario.
+    d.add(e.GAP_LABEL, label='$V_p$', endpts=[Vp_mas.start, Vp_menos.start])
+
+    # Etiqueta invisible de terminal de voltaje secundario.
+    d.add(e.GAP_LABEL, label='$V_s$', endpts=[Vs_mas.start, Vs_menos.start])
+
+    # Se dibuja el diagrama.
+    d.draw()
+
 
 # -----------------------------------------------------------------------------
 
