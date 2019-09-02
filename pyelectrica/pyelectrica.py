@@ -1,10 +1,10 @@
 ﻿# -*- coding: utf-8 -*-
 
 """
-PyElectrica   |1.1.3|
+PyElectrica   |1.1.4|
 
 Modulo Python con funciones útiles para resolver problemas específicos
-en la Ingeniería Eléctrica relativos a los Circuitos y Máquinas Eléctricas.
+en Ingeniería Eléctrica relativos a los Circuitos y Máquinas Eléctricas.
 
 Funciones integradas en el módulo PyElectrica:
 ----------------------------------------------
@@ -27,6 +27,12 @@ Funciones integradas en el módulo PyElectrica:
 * compCA_GenSinc
 * par_vel
 * cepTransformador
+
+----------------------------------------------
+       CALCULOS EN INSTALACIONES ELÉCTRICAS
+----------------------------------------------
+* imonoF
+* cTensionMono
 
 ----------------------------------------------
       CONSTANTES Y FUNCIONES MATEMÁTICAS
@@ -444,8 +450,10 @@ def c_1orden(**kwarg):
             v_t_dob = kwarg['Vi'] * exp(-t / (tau * 2))
 
             # Se genera la curva de respuesta del circuito RC.
-            plt.plot(
-                t, v_t_med, color='green', label=r'$v/V_i(t) \ \ \ \tau = 0.5$')
+            plt.plot(t,
+                     v_t_med,
+                     color='green',
+                     label=r'$v/V_i(t) \ \ \ \tau = 0.5$')
 
             plt.plot(
                 t, v_t, color='blue', label=r'$v/V_i(t) \ \ \ \tau = 1$')
@@ -817,9 +825,105 @@ def cepTransformador(Voc, Ioc, Poc, Vsc, Isc, Psc):
     # Se dibuja el diagrama.
     d.draw()
 
+# -----------------------------------------------------------------------------
+# ---------------------   INSTALACIONES ELÉCTRICAS  ---------------------------
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
+
+# Función para calcular la corriente de la carga de un circuito eléctrico en
+# en diseño de instalaciones eléctricas.
+
+def imonoF(VA, Vn):
+    """
+    Función para calcular la corriente de un circuito eléctrico en el diseño
+    de instalaciones eléctricas residenciales. La función también recomienda
+    el calibre de cable adecuado para la corriente del circuito.
+
+    Sintaxis:
+    i1F(VA, Vn)
+
+    Donde:
+    VA = Volt-Ampere de la carga o del circuito a calcular.
+    Vn = Voltaje nominal de fase a neutro.
+    """
+
+    i = VA / Vn
+
+    # Determinar el calibre de conductor.
+    # Basado en capacidad de cables tipo THW y similares.
+    if i <= 20:
+        cable = '#14 AWG'
+    elif i <= 25:
+        cable = '#12 AWG'
+    elif i <= 35:
+        cable = '#10 AWG'
+    elif i <= 50:
+        cable = '#8 AWG'
+    elif i > 50:
+        cable = ''
+        print('\nLa corriente calculada es de {} A.'.format(round(i, 2)))
+        print('El calibre del conductor será demasiado grande.')
+        print('Considera dividir la carga del circuito.')
+        print('O considera cambiar la tensión del circuito.')
+        exit()
+
+    # Imprimir los resultados en pantalla.
+    print('Para una carga de {0} VA conectada a {1} V.'.format(VA, Vn))
+    print('La corriente del circuito es de: {} A.'.format(round(i, 2)))
+    print('El calibre de cable recomendado es del {}, tipo THW o similar.'
+          .format(cable))
+
 
 # -----------------------------------------------------------------------------
 
+# Función para calcular la caída de tensión en un conductor usando la formula
+# de caída de tensión.
+
+
+def cTensionMono(l, I, Vn, c):
+    """
+    Función cTension para calcular la caída de tensión en un conductor,
+    utilizando la formula de caída de tensión de instalaciones eléctricas.
+
+    Sintaxis:
+    cTensionMono(l, I, Vn, c)
+
+    Donde:
+    l = Longitud hasta la última carga del circuito.
+    I = Corriente que pasara en el conductor.
+    Vn = Tensión nominal a neutro.
+    c =  Calibre del conductor.
+    """
+
+    if c ==  14:
+        s = 2.08 #mm2
+    elif c == 12:
+        s = 3.31 #mm2
+    elif c == 10:
+        s = 5.26 #mm2
+    elif c == 8:
+        s = 8.37 #mm2
+    elif c == 6:
+        s = 13.3 #mm2
+    else:
+        s = 0
+
+    if s != 0:
+        ex100 = 4 * l * I / (Vn * s)
+        print('\nLos datos ingresados son los siguientes:')
+        print('La longitud del circuito es de {} Mts.'.format(l))
+        print('La corriente en el circuito es de {} A.'.format(I))
+        print('El voltaje de operación del circuito es de {} V.'.format(Vn))
+        print('El calibre del conductor seleccionado es del #{} AWG.'
+              .format(c))
+        print('La caída de tensión del circuito es de {} %.'
+              .format(round(ex100,2)))
+    else:
+        print('\nEl calibre del conductor no esta incluido o normalizado.')
+
+
+# -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
     print('Este es el modulo \"PyElectrica\" para Python.')

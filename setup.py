@@ -8,11 +8,11 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyelectrica",
-    version="1.1.3",
+    version="1.1.4-post1",
     author="Isai Aragón P.",
     author_email="isaix25@gmail.com",
     description="Módulo PyElectrica, útil para resolver problemas específicos \
-    de Máquinas y Circuitos Eléctricos en Ingeniería Eléctrica",
+    de Máquinas y Circuitos Eléctricos, así como de Instalaciones Eléctricas",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://pyelectrica.ml",
@@ -29,4 +29,5 @@ setuptools.setup(
         "Topic :: Education",
         "Topic :: Scientific/Engineering",
     ],
+    python_requires='>=3.5',
 )
