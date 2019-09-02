@@ -841,7 +841,7 @@ def imonoF(VA, Vn):
     el calibre de cable adecuado para la corriente del circuito.
 
     Sintaxis:
-    i1F(VA, Vn)
+    imonoF(VA, Vn)
 
     Donde:
     VA = Volt-Ampere de la carga o del circuito a calcular.
@@ -850,29 +850,33 @@ def imonoF(VA, Vn):
 
     i = VA / Vn
 
+    def resultado():
+        # Imprimir los resultados en pantalla.
+        print('\nPara una carga de {0} VA conectada a {1} V.'.format(VA, Vn))
+        print('La corriente calculada es de: {} A.'.format(round(i, 2)))
+        print('El calibre de cable recomendado es del {}, tipo THW o similar.'
+              .format(cable))
+
     # Determinar el calibre de conductor.
     # Basado en capacidad de cables tipo THW y similares.
     if i <= 20:
         cable = '#14 AWG'
+        resultado()
     elif i <= 25:
         cable = '#12 AWG'
+        resultado()
     elif i <= 35:
         cable = '#10 AWG'
+        resultado()
     elif i <= 50:
         cable = '#8 AWG'
+        resultado()
     elif i > 50:
         cable = ''
         print('\nLa corriente calculada es de {} A.'.format(round(i, 2)))
         print('El calibre del conductor será demasiado grande.')
         print('Considera dividir la carga del circuito.')
         print('O considera cambiar la tensión del circuito.')
-        exit()
-
-    # Imprimir los resultados en pantalla.
-    print('Para una carga de {0} VA conectada a {1} V.'.format(VA, Vn))
-    print('La corriente del circuito es de: {} A.'.format(round(i, 2)))
-    print('El calibre de cable recomendado es del {}, tipo THW o similar.'
-          .format(cable))
 
 
 # -----------------------------------------------------------------------------

@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pyelectrica",
-    version="1.1.4-post1",
+    version="1.1.4.post2",
     author="Isai Aragón P.",
     author_email="isaix25@gmail.com",
     description="Módulo PyElectrica, útil para resolver problemas específicos \
