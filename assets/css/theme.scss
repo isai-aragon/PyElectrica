@@ -4,8 +4,9 @@
 
 $brown: #B59F62;
 $teal: #40FFDC;
+$redpye: #FF8000;
 $black: #111;
-$primary: $teal;
+$primary: $redpye;
 $dark:    $black;
 $enable-rounded: false;
 
@@ -114,9 +115,9 @@ img, img:hover {
 }
 // menu
 .navbar-brand img {
-    max-height:80px;
-    margin-bottom:40px;
-    margin-top:40px;
+    max-height:210px;
+    margin-bottom:10px;
+    margin-top:10px;
 }
 .sidebar {
     position: fixed;
