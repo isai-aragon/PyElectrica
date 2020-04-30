@@ -5,7 +5,7 @@ description: "Página web creada para el módulo de Python PyElectrica. En esta
 página tambien se subiran artículos de uso del módulo y de la aplicación del
 lenguaje de programación Python."
 logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+favicon: 'assets/images/favicon.ico'
 baseurl: ''
 google_analytics: 'UA-xxxxxxxx-1'
 disqus: 'demowebsite'
@@ -56,7 +56,7 @@ paginate: 6
 paginate_path: /page:num/
     
 # Other
-highlighter: none
+highlighter: rouge
 markdown: kramdown
 kramdown:
    syntax_highlighter_opts:
