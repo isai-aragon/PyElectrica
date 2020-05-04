@@ -1,39 +1,30 @@
 # Site
 name: "PyElectrica"
 title: "PyElectrica"
-description: "Página web creada para el módulo de Python PyElectrica. En esta 
+description: "Página web creada para el módulo de Python PyElectrica. En esta
 página tambien se subiran artículos de uso del módulo y de la aplicación del
 lenguaje de programación Python."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
 google_analytics: 'UA-xxxxxxxx-1'
-disqus: 'demowebsite'
-mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+disqus: 'pyelectrica'
+mailchimp-list: 'https://pyelectrica.us8.list-manage.com/subscribe/post?u=33f298460d5da361abfec6484&amp;id=c0557e7d2d'
 include: ["_pages"]
 permalink: /:title/
 email: isaix25@gmail.com
 
 # Authors
 authors:
-  sal:
-    name: Sal
-    display_name: Sal
-    gravatar: e56154546cf4be74e393c62d1ae9f9d4
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net/donate/
-    twitter: https://twitter.com/wowthemesnet
-    description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
-  john:
-    name: John
-    display_name: John    
-    avatar: 'assets/images/avatar.png'
-    gravatar: b1cc14991db7a456fcd761680bbc8f81
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net
-    twitter: https://twitter.com/wowthemesnet
-    description: "This is the author box. Write a short description of the author here. You are currently previewing Mediumish demo, a Jekyll template compatible with Github pages."
-
+  isai:
+    name: Isai
+    display_name: Isai
+    gravatar: b17feda5b54b84df5b4912f640deacaa
+    email: isaix25@gmail.com 
+    web: https://github.com/x1sa1
+    twitter: https://twitter.com/0001sa1000
+    description: "Autor del módulo PyElectrica y de la página pyelectrica.ml, ingeniero eléctrico de profesión, con especialidad en Control e Iluminación, apasionado de la tecnología y de la programación."
+  
 # Plugins
 plugins:
   - jekyll-paginate
@@ -42,7 +33,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-archives
   - jekyll-figure
-    
+
 # Archives
 jekyll-archives:
   enabled:
@@ -50,11 +41,11 @@ jekyll-archives:
   layout: archive
   permalinks:
     category: '/category/:name/'
-    
-# Pagination 
+
+# Pagination
 paginate: 6
 paginate_path: /page:num/
-    
+
 # Other
 highlighter: rouge
 markdown: kramdown
